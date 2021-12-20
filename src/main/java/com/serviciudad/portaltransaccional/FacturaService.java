@@ -1,0 +1,36 @@
+package com.serviciudad.portaltransaccional;
+
+import org.apache.tomcat.util.buf.HexUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+@Service
+public final class FacturaService {
+    public FacturaResponse consultaFactura(FacturaRequest facturaRequest) {
+        WebClient webClient = WebClient.create("http://192.168.100.72:8080/recaudos/api");
+
+        return webClient.post()
+                .uri("/rec")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(facturaRequest), FacturaRequest.class)
+                .retrieve()
+                .bodyToMono(FacturaResponse.class)
+                .timeout(Duration.ofSeconds(20))  // timeout
+                .block();
+    }
+}
