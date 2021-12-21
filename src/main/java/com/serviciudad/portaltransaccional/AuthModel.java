@@ -1,16 +1,14 @@
 package com.serviciudad.portaltransaccional;
 
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="auth")
 public final class AuthModel {
@@ -19,7 +17,7 @@ public final class AuthModel {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    private final String reference;
-    private final String descripcion;
-    private final long total;
+    private String reference;
+    private String descripcion;
+    private long total;
 }

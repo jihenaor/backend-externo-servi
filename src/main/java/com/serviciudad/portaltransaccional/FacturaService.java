@@ -13,14 +13,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public final class FacturaService {
+    @Autowired
+    AuthRepository authRepository;
+
     public FacturaResponse consultaFactura(FacturaRequest facturaRequest) {
         WebClient webClient = WebClient.create("http://192.168.100.72:8080/recaudos/api");
 
@@ -32,5 +32,9 @@ public final class FacturaService {
                 .bodyToMono(FacturaResponse.class)
                 .timeout(Duration.ofSeconds(20))  // timeout
                 .block();
+    }
+
+    public List<AuthModel> listar() {
+        return (List<AuthModel>) authRepository.findAll();
     }
 }

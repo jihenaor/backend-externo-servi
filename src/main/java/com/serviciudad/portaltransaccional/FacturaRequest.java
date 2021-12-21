@@ -9,5 +9,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FacturaRequest {
-    private String numerofactura;
+    private String codsuscrip;
 }

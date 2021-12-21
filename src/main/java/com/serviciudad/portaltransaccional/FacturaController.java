@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public final class FacturaController {
@@ -18,6 +20,17 @@ public final class FacturaController {
 
         try {
             return ResponseEntity.ok().body(facturaService.consultaFactura(facturaRequest));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    public ResponseEntity<List<AuthModel>> listar() {
+
+        try {
+            return ResponseEntity.ok().body(facturaService.listar());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(null);
