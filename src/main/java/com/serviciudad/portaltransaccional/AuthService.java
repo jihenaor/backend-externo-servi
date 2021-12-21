@@ -41,7 +41,7 @@ public final class AuthService {
 
         ClientRequest clientRequest = createRequest(sessionRequest);
 
-        save(sessionRequest);
+//        save(sessionRequest);
 
         clientResponse = webClient.post()
                 .uri("/session")
@@ -71,7 +71,7 @@ public final class AuthService {
 
         return clientResponse;
     }
-
+/*
     private void save(SessionRequest sessionRequest) {
         authRepository.save(
                 new AuthModel(  null, sessionRequest.getReference(),
@@ -79,7 +79,7 @@ public final class AuthService {
                                 sessionRequest.getTotal()
                 ));
     }
-
+*/
     public ClientRequest createRequest(SessionRequest sessionRequest) {
         String locale = "es_CO";
         String returnUrl = "https://dnetix.co/p2p/client";
